@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+<head>
+  <title>Albums - Kendrick Lamar </title>
+</head>
+
+<style>
+  /* Scroll animation */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px); /* Start slightly below the viewport */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* End at the original position */
+    }
+  }
+
+  .scroll-effect {
+    opacity: 0; /* Initially hidden */
+    animation: fade-in-up 1s forwards; /* Fade and move up */
+    animation-delay: 0.5s; /* Delay to allow for smoother appearance */
+  }
+
+  /* Heading style */
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin-top: -1rem;
+    font-size: 1.5rem;
+  }
+
+  /* Albums container for horizontal scrolling */
+  .albums-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    overflow-x: auto;
+    white-space: nowrap; /* Prevent line breaks */
+  }
+
+  /* Hover effects for Spotify embeds */
+  .spotify-embed {
+    flex-shrink: 0; /* Prevents the item from shrinking */
+    width: 380px; /* Set a fixed width for the album embeds */
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth zoom effect */
+    position: relative; /* For pseudo-element */
+  }
+
+  /* Hover Zoom and White Fire effect */
+  .spotify-embed:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8); /* White glowing fire effect */
+  }
+
+  /* White Fire animation */
+  .spotify-embed:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: url('https://path-to-white-fire-gif.gif'); /* White fire effect gif */
+    background-size: cover;
+    border-radius: 12px;
+    opacity: 0.8;
+  }
+
+  /* Customize scrollbar */
+  .albums-container::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+  }
+
+  .albums-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6); /* Scrollbar color */
+    border-radius: 10px;
+  }
+
+  .albums-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Scrollbar track color */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .spotify-embed {
+      width: 280px; /* Smaller width for embeds on mobile */
+    }
+  }
+</style>
+
+<script>
+  // JavaScript to detect when the element is in view
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    });
+
+    document.querySelectorAll('.scroll-effect').forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
+
+<Layout>
+  <!-- Navbar -->
+  <Nav />
+
+  <!-- Albums Section -->
+   <div class="flex flex-col items-center justify-center min-h-screen"
+       style="background-image: url('https://u.cubeupload.com/orilin_2024/a61qualityrestoration20.jpg'); 
+              background-size: cover; 
+              background-repeat: no-repeat; 
+              background-position: center;">
+    
+    <!-- Heading -->
+    <h1 class="scroll-effect">Listen more about Kendrick Lamar.</h1>
+    <p class="subtitle text-white font-poppins scroll-effect">Listen More On Spotify.</p>
+
+    <!-- Horizontal Albums Container with Spotify embeds -->
+    <div class="albums-container">
+      <!-- Embed Album 1 -->
+      <iframe class="spotify-embed scroll-effect" style="border-radius:12px" 
+              src="https://open.spotify.com/embed/album/4eLPsYPBmXABThSJ821sqY" 
+              width="100%" height="380" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen>
+      </iframe>
+
+      <!-- Embed Album 2 -->
+      <iframe class="spotify-embed scroll-effect" style="border-radius:12px" 
+              src="https://open.spotify.com/embed/album/7ycBtnsMtyVbbwTfJwRjSP" 
+              width="100%" height="380" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen>
+      </iframe>
+
+      <!-- Embed Album 3 -->
+      <iframe class="spotify-embed scroll-effect" style="border-radius:12px" 
+              src="https://open.spotify.com/embed/album/79ONNoS4M9tfIA1mYLBYVX" 
+              width="100%" height="380" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen>
+      </iframe>
+
+      <!-- Add more albums as needed -->
+    </div>
+  </div>
+
+</Layout>

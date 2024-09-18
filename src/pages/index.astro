@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+<head>
+  <title>Home - Kendrick Lamar </title>
+</head>
+
+<style>
+  /* Scroll animation */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px); /* Start slightly below the viewport */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* End at the original position */
+    }
+  }
+
+  .scroll-effect {
+    opacity: 0; /* Initially hidden */
+    animation: fade-in-up 1s forwards; /* Fade and move up */
+    animation-delay: 0.5s; /* Delay to allow for smoother appearance */
+  }
+
+  /* To make the animation trigger when in view */
+  .in-view {
+    opacity: 1;
+  }
+
+  /* Container for text and video */
+  .content-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  /* Text section styling */
+  .text-section {
+    max-width: 60%;
+    margin-right: auto; /* Align text more to the left */
+  }
+
+  /* Spotify embed styling */
+  .spotify-section {
+    max-width: 40%;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+      text-align: center;
+    }
+    .text-section,
+    .spotify-section {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // JavaScript to detect when the element is in view
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    });
+
+    document.querySelectorAll('.scroll-effect').forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
+
+<Layout>
+  <!-- Navbar -->
+  <Nav />
+
+  <!-- Main Content with responsive background -->
+  <div class="flex flex-col items-center justify-center min-h-screen"
+       style="background-image: url('https://u.cubeupload.com/orilin_2024/qualityrestoration20.jpg'); 
+              background-size: cover; 
+              background-repeat: no-repeat; 
+              background-position: center;">
+    
+    <!-- Container for text and Spotify embed -->
+    <div class="content-container">
+      <!-- Text Section -->
+      <div class="text-section">
+        <h1 class="text-5xl font-bold text-white scroll-effect" style="font-family: 'Inter', sans-serif;">
+            <span class="text-6xl">WELCOME TO</span> <br />
+            <span class="text-6xl">KENDRICK LAMAR'S</span> <br />
+            <span class="text-6xl">WEBSITE.</span>
+        </h1>
+      </div>
+
+      <!-- Spotify Section -->
+      <div class="spotify-section">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/4eLPsYPBmXABThSJ821sqY" width="100%" height="380" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen></iframe>
+      </div>
+    </div>
+  </div>
+
+</Layout>

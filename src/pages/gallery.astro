@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+<head>
+  <title>Gallery - Kendrick Lamar </title>
+</head>
+
+<style>
+  /* Scroll animation */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px); /* Start slightly below the viewport */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* End at the original position */
+    }
+  }
+
+  .scroll-effect {
+    opacity: 0; /* Initially hidden */
+    animation: fade-in-up 1s forwards; /* Fade and move up */
+    animation-delay: 0.5s; /* Delay to allow for smoother appearance */
+  }
+
+  /* Heading style */
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin-top: -1rem;
+    font-size: 1.5rem;
+  }
+
+  /* Gallery container for horizontal scrolling */
+  .gallery-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    overflow-x: auto;
+    white-space: nowrap; /* Prevent line breaks */
+  }
+
+  /* Styling for each image in the gallery */
+  .gallery-image-container {
+    position: relative;
+    width: 400px; /* Set a fixed width for the images */
+    height: 300px; /* Set a fixed height for the images */
+    overflow: hidden; /* Hide the zoomed image overflow */
+    border-radius: 12px; /* Rounded corners for the images */
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+  }
+
+  /* Stronger zoom effect on hover */
+  .gallery-image-container:hover {
+    transform: scale(1.2); /* Stronger zoom effect on the container */
+  }
+
+  .gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth zoom effect on image */
+  }
+
+  /* Zoom the image itself on hover */
+  .gallery-image-container:hover .gallery-image {
+    transform: scale(1.2); /* Enlarge the image when hovered */
+  }
+
+  /* Thorn crown overlay centered */
+  .thorn-crown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the crown */
+    width: 120px; /* Adjust size as needed */
+    height: auto;
+    opacity: 0; /* Hidden initially */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth fade-in and zoom */
+  }
+
+  /* Show thorn crown on hover with enlarged effect */
+  .gallery-image-container:hover .thorn-crown {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3); /* Enlarged thorn crown on hover */
+  }
+
+  /* Customize scrollbar */
+  .gallery-container::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+  }
+
+  .gallery-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6); /* Scrollbar color */
+    border-radius: 10px;
+  }
+
+  .gallery-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Scrollbar track color */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .gallery-image-container {
+      width: 300px; /* Smaller width for images on mobile */
+      height: 200px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    });
+
+    document.querySelectorAll('.scroll-effect').forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
+
+<Layout>
+  <!-- Navbar -->
+  <Nav />
+
+  <!-- Gallery Section -->
+   <div class="flex flex-col items-center justify-center min-h-screen"
+       style="background-image: url('https://u.cubeupload.com/orilin_2024/ed3qualityrestoration20.jpg'); 
+              background-size: cover; 
+              background-repeat: no-repeat; 
+              background-position: center;">
+    
+    <!-- Heading -->
+    <h1 class="scroll-effect">Kendrick Lamar's Gallery</h1>
+    <!-- Horizontal Gallery Container with images -->
+    <div class="gallery-container">
+      <!-- Image 1 -->
+      <div class="gallery-image-container scroll-effect">
+        <img class="gallery-image" src="https://i.pinimg.com/564x/53/fa/1a/53fa1a3f5b48ee3789f3587b24595b20.jpg" alt="Kendrick Lamar Image 1">
+        <img class="thorn-crown" src="https://u.cubeupload.com/orilin_2024/download.png" alt="Thorn Crown">
+      </div>
+
+      <!-- Image 2 -->
+      <div class="gallery-image-container scroll-effect">
+        <img class="gallery-image" src="https://i.pinimg.com/736x/89/b0/f4/89b0f4407bdce9ba7f34773e5d2c210c.jpg" alt="Kendrick Lamar Image 2">
+        <img class="thorn-crown" src="https://u.cubeupload.com/orilin_2024/download.png" alt="Thorn Crown">
+      </div>
+
+      <!-- Image 3 -->
+      <div class="gallery-image-container scroll-effect">
+        <img class="gallery-image" src="https://i.pinimg.com/736x/56/ff/59/56ff59e70395f4255daf2773d3184de8.jpg" alt="Kendrick Lamar Image 3">
+        <img class="thorn-crown" src="https://u.cubeupload.com/orilin_2024/download.png" alt="Thorn Crown">
+      </div>
+
+      <!-- Add more images as needed -->
+    </div>
+  </div>
+</Layout>

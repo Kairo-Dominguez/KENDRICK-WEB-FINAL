@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+<head>
+  <title>About - Kendrick Lamar </title>
+</head>
+
+<style>
+  /* Add specific styles for the About page here */
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: left; /* Align text to the left */
+    opacity: 0; /* Start hidden */
+    transform: translateY(20px); /* Start offset */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
+  }
+
+  .about-content.visible {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Slide up */
+  }
+
+  .kendrick-name, h1, p {
+    color: white; /* Set text color to white */
+    /* Removed the text-shadow to eliminate black outline */
+  }
+
+  h1 {
+    font-family: 'Poppins', sans-serif; /* Use Poppins font for the heading */
+    font-weight: bold;
+    text-decoration: underline; /* Add underline to the heading */
+  }
+
+  p {
+    font-weight: bold; /* Make paragraphs bold */
+  }
+
+  .kendrick-name {
+    font-family: 'Castoro', serif; /* Ensure the Castoro font is used for names */
+    font-weight: bold;
+  }
+
+  .kendrick {
+    color: white; /* Kendrick's name in white */
+  }
+
+  .lamar {
+    color: red; /* Lamar's name in red */
+  }
+</style>
+
+<Layout>
+  <!-- Navbar -->
+  <Nav />
+
+  <!-- Main Content for About Page -->
+  <div class="flex flex-col items-center justify-center text-white min-h-screen"
+       style="background-image: url('https://u.cubeupload.com/orilin_2024/10cqualityrestoration20.jpg'); 
+              background-size: cover; 
+              background-repeat: no-repeat; 
+              background-position: center;">
+    
+    <!-- About Page Header -->
+    <div class="text-left py-12 about-content">
+      <h1 class="text-4xl mb-4">About Kendrick Lamar</h1>
+      <p class="text-lg mb-4">
+        Kendrick Lamar is an influential artist whose music has reshaped the landscape of modern hip-hop. With a career spanning over a decade, he has become known for his powerful lyrics and unique sound. His albums often explore themes of social justice, personal struggle, and introspection, resonating with a wide audience.
+      </p>
+      <p class="text-lg mb-4">
+        One of the most remarkable aspects of Kendrick Lamar's work is his ability to blend storytelling with profound commentary. He tackles issues such as racial inequality, mental health, and personal growth with an authenticity that sets him apart from his peers.
+      </p>
+      <p class="text-lg mb-4">
+        Kendrick's artistry has been recognized with numerous awards and accolades, including multiple Grammy Awards. His impact on the music industry and culture at large is undeniable, making him a true icon of his generation.
+      </p>
+      <p class="text-lg">
+        Known professionally as <span class="kendrick-name"><span class="kendrick">Kendrick</span> <span class="lamar"> Lamar</span></span>, he continues to push the boundaries of music and art.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const elements = document.querySelectorAll('.about-content');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+
+</Layout>

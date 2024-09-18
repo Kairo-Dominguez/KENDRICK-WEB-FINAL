@@ -1,0 +1,65 @@
+---
+// Get the current path
+const currentPath = Astro.request.url;
+---
+
+<style>
+  /* Importing Poppins font */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+  /* White fire animation */
+  @keyframes white-fire {
+    0% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .fire-effect {
+    display: inline-block;
+    transition: transform 0.3s;
+  }
+
+  .fire-effect:hover {
+    animation: white-fire 1s infinite;
+    transform: scale(1.1); /* Scale up slightly on hover */
+  }
+
+  /* Underline for active link */
+  .active {
+    border-bottom: 3px solid white; /* Creates an underline effect */
+    padding-bottom: 2px; /* Ensures the underline isn't too close to the text */
+  }
+</style>
+
+<nav class="bg-transparent w-full p-4 fixed top-0 left-0 font-poppins">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo as a Link -->
+    <div class="flex items-center">
+      <a href="/">
+        <img src="https://u.cubeupload.com/orilin_2024/1271279155kendrickla.png" alt="Logo" class="h-12" />
+      </a>
+    </div>
+    
+    <!-- Navigation Links -->
+    <ul class="flex space-x-8"> <!-- Add space between navigation items -->
+      <li>
+        <a href="/" class={`text-white hover:text-white fire-effect text-lg md:text-xl ${currentPath === '/' ? 'active' : ''}`}>Home</a>
+      </li>
+      <li>
+        <a href="/about" class={`text-white hover:text-white fire-effect text-lg md:text-xl ${currentPath === '/about' ? 'active' : ''}`}>About</a>
+      </li>
+      <li>
+        <a href="/albums" class={`text-white hover:text-white fire-effect text-lg md:text-xl ${currentPath === '/albums' ? 'active' : ''}`}>Albums</a>
+      </li>
+      <li>
+        <a href="/gallery" class={`text-white hover:text-white fire-effect text-lg md:text-xl ${currentPath === '/gallery' ? 'active' : ''}`}>Gallery</a>
+      </li>
+    </ul>
+  </div>
+</nav>
